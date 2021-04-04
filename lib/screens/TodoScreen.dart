@@ -5,9 +5,19 @@ import 'package:getx_todo_app/models/Todo.dart';
 
 class TodoScreen extends StatelessWidget {
   final TodoController todoController = Get.find();
-  TextEditingController textEditingController = TextEditingController();
+  final int index;
+  String text = '';
+
+  TodoScreen({this.index});
+
   @override
   Widget build(BuildContext context) {
+    if (!this.index.isNull) {
+      text = todoController.todos[index].text;
+    }
+    TextEditingController textEditingController =
+        TextEditingController(text: text);
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -42,11 +52,19 @@ class TodoScreen extends StatelessWidget {
                   },
                 ),
                 RaisedButton(
-                  child: Text('Add', style: TextStyle(color: Colors.white)),
+                  child: Text(this.index.isNull ? 'Add' : 'Edit',
+                      style: TextStyle(color: Colors.white)),
                   color: Colors.green,
                   onPressed: () {
-                    todoController.todos
-                        .add(Todo(text: textEditingController.text));
+                    if (this.index.isNull) {
+                      todoController.todos
+                          .add(Todo(text: textEditingController.text));
+                    } else {
+                      var editing = todoController.todos[index];
+                      editing.text = textEditingController.text;
+                      todoController.todos[index] = editing;
+                    }
+
                     Get.back();
                   },
                 ),

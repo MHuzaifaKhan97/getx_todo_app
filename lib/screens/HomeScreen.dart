@@ -28,8 +28,10 @@ class HomeScreen extends StatelessWidget {
                     : TextStyle(
                         color: Theme.of(context).textTheme.bodyText1.color),
               ),
-              onTap: () {},
-              trailing: Checkbox(
+              onTap: () {
+                Get.to(TodoScreen(index: index));
+              },
+              leading: Checkbox(
                 value: todoController.todos[index].done,
                 onChanged: (v) {
                   var changed = todoController.todos[index];
@@ -37,6 +39,7 @@ class HomeScreen extends StatelessWidget {
                   todoController.todos[index] = changed;
                 },
               ),
+              trailing: Icon(Icons.chevron_right),
             ),
             separatorBuilder: (_, __) => Divider(),
             itemCount: todoController.todos.length,
