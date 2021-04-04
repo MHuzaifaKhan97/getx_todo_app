@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_todo_app/controllers/TodoController.dart';
+import 'package:getx_todo_app/screens/TodoScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -8,6 +9,12 @@ class HomeScreen extends StatelessWidget {
     final TodoController todoController = Get.put(TodoController());
     return Scaffold(
       appBar: AppBar(title: Text('GetX Todo List')),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Get.to(TodoScreen());
+        },
+      ),
       body: Container(
         child: Obx(
           () => ListView.separated(
@@ -20,6 +27,15 @@ class HomeScreen extends StatelessWidget {
                         decoration: TextDecoration.lineThrough)
                     : TextStyle(
                         color: Theme.of(context).textTheme.bodyText1.color),
+              ),
+              onTap: () {},
+              trailing: Checkbox(
+                value: todoController.todos[index].done,
+                onChanged: (v) {
+                  var changed = todoController.todos[index];
+                  changed.done = v;
+                  todoController.todos[index] = changed;
+                },
               ),
             ),
             separatorBuilder: (_, __) => Divider(),

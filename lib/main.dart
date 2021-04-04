@@ -4,7 +4,7 @@ import 'package:getx_todo_app/screens/HomeScreen.dart';
 // import 'package:getx_todo_app/screens/TodoScreen.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: HomeScreen(),
   ));
