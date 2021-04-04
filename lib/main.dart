@@ -6,6 +6,7 @@ import 'package:getx_todo_app/screens/HomeScreen.dart';
 void main() async {
   await GetStorage.init();
   runApp(GetMaterialApp(
+    // theme: ThemeData.dark(),
     debugShowCheckedModeBanner: false,
     home: HomeScreen(),
   ));
