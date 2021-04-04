@@ -24,7 +24,19 @@ class HomeScreen extends StatelessWidget {
                 var removed = todoController.todos[index];
                 todoController.todos.removeAt(index);
                 Get.snackbar('Task Removed',
-                    'Task ${removed.text} has been removed successfully');
+                    'Task ${removed.text} has been removed successfully',
+                    mainButton: FlatButton(
+                        onPressed: () {
+                          if (removed.isNull) {
+                            return;
+                          }
+                          todoController.todos.insert(index, removed);
+                          removed = null;
+                          if (Get.isSnackbarOpen) {
+                            Get.back();
+                          }
+                        },
+                        child: Text('Undo')));
               },
               child: ListTile(
                 title: Text(
