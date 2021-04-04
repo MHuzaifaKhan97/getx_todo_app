@@ -9,9 +9,17 @@ class TodoController extends GetxController {
 
   @override
   void onInit() {
+    List storedTodos = GetStorage().read('todos');
+
+    if (!storedTodos.isNull) {
+      // todos = RxList(storedTodos.map((e) => Todo.fromJson(e)).toList());
+      // or
+      todos = storedTodos.map((e) => Todo.fromJson(e)).toList().obs;
+    }
+
     // every time todos change, this callback is call
     ever(todos, (_) {
-      GetStorage.write('todos', todos.toList());
+      GetStorage().write('todos', todos.toList());
     });
     super.onInit();
   }
